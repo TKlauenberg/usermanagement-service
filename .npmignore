@@ -1,0 +1,10 @@
+docs
+features
+.vscode
+*.ts
+*.js.map
+tsconfig.json
+Jenkinsfile
+Readme.md
+src/tsconfig.tsbuildinfo
+!*.d.ts
