@@ -5,7 +5,7 @@
   "tasks": [
     {
       "type": "typescript",
-      "tsconfig": "features/tsconfig.json",
+      "tsconfig": "features/stepdefs/tsconfig.json",
       "option": "watch",
       "problemMatcher": ["$tsc-watch"],
       "group": "build",
