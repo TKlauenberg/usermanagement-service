@@ -1,6 +1,8 @@
-import server from './server';
+// import server from './server';
 
-// use configuration later
-server.listen(8080, () => {
-  console.log('server listens on port 8080')
-})
+// todo use with implemented backend
+
+// // use configuration later
+// server.listen(8080, () => {
+//   console.log('server listens on port 8080')
+// })

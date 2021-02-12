@@ -1,10 +1,13 @@
 import * as express from 'express';
+import { IUsermanagementBackend } from './backend';
+import { getUserRouter } from './router';
 
-const app = express();
+export function getServers(
+  usermanagementBackend: IUsermanagementBackend,
+): express.Express {
+  const app = express();
 
+  app.use('/api', getUserRouter(usermanagementBackend));
 
-app.get('/', (_, res) => {
-  res.send('Hello World!');
-});
-
-export default app;
+  return app;
+}
