@@ -3,6 +3,9 @@
   "compilerOptions": {
     "declaration": false,
     "strict": false,
+    "allowJs": true,
+    "outDir": "./dist",
+    "resolveJsonModule": true,
     "module": "CommonJS",
     "moduleResolution": "Node"
   },

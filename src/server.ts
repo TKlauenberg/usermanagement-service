@@ -7,7 +7,7 @@ export function getServers(
 ): express.Express {
   const app = express();
 
-  app.use('/api', getUserRouter(usermanagementBackend));
+  app.use('/api/v1', getUserRouter(usermanagementBackend));
 
   return app;
 }

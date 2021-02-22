@@ -1,15 +1,18 @@
 import { DataTable, Given, Then, When } from '@cucumber/cucumber';
-import { contain, Ensure } from '@serenity-js/assertions';
-import { actorCalled, actorInTheSpotlight, Transform } from '@serenity-js/core';
+import { contain, Ensure, equals, not } from '@serenity-js/assertions';
 import {
-  add,
-  deleteTheUser,
-  listUsers,
-} from './support/screenplay/Interactions/Users';
-import { Userlist } from './support/screenplay/Questions';
+  actorCalled,
+  actorInTheSpotlight,
+  Loop,
+  Transform,
+} from '@serenity-js/core';
+import { add, deleteTheUser, listUsers } from './support/interactions';
+import { Userlist } from './support/questions';
 
-Given('a user base with the users', (dataTable: DataTable) =>
-  actorCalled('gherkin').attemptsTo(add.theUsers(dataTable.hashes())),
+Given(
+  '{word} creates a user base with the users',
+  (actor: string, dataTable: DataTable) =>
+    actorCalled(actor).attemptsTo(add.theUsers(dataTable.hashes())),
 );
 
 Given(
@@ -31,5 +34,17 @@ Then('the userlist only contains', (dataTable: DataTable) => {
   const activities = dataTable
     .hashes()
     .map((x) => Ensure.that(userIdList, contain(x.id)));
-  actorInTheSpotlight().attemptsTo(...activities);
+  return actorInTheSpotlight().attemptsTo(
+    Ensure.that(
+      Transform.the(Userlist, (x) => x.length),
+      equals(dataTable.hashes().length),
+    ),
+    Ensure.that(Userlist, not(equals(undefined))),
+    Loop.over(dataTable.hashes()).to(
+      Ensure.that(
+        userIdList,
+        contain(Transform.the(Loop.item<any>(), (x) => x.id)),
+      ),
+    ),
+  );
 });

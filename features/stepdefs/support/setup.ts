@@ -23,11 +23,11 @@ configure({
   ],
 });
 
-Before(() =>
-  actorCalled('Gherkin').attemptsTo(
-    StartLocalServer.onRandomPort(),
-    TakeNote.of(LocalServer.url()),
-  ),
-);
+// Before(() =>
+//   actorCalled('Gherkin').attemptsTo(
+//     StartLocalServer.onRandomPort(),
+//     TakeNote.of(LocalServer.url()),
+//   ),
+// );
 
-After(() => actorCalled('Gherkin').attemptsTo(StopLocalServer.ifRunning()));
+// After(() => actorCalled('Gherkin').attemptsTo(StopLocalServer.ifRunning()));
