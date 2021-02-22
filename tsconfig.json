@@ -9,7 +9,6 @@
         "strict": true,
         "module": "commonjs",
         "allowSyntheticDefaultImports": true,
-        "declaration": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
