@@ -9,22 +9,26 @@
       "request": "launch",
       "name": "Current File",
       "program": "${file}",
-      "outFiles": ["${workspaceFolder}/lib/**/*.js"]
+      "outFiles": ["${workspaceFolder}/**/*.js"]
     },
     {
       "type": "node",
       "request": "launch",
+      "runtimeArgs": ["--enable-source-maps"],
       "name": "Cucumber - All Features",
-      "program": "${workspaceFolder}/node_modules/cucumber/bin/cucumber-js",
-      "outFiles": ["${workspaceFolder}/**/*.js"]
+      "program": "${workspaceFolder}/node_modules/@cucumber/cucumber/bin/cucumber-js",
+      "args": ["--format", "@serenity-js/cucumber"],
+      "sourceMaps": true,
+      "cwd": "${workspaceFolder}",
+      "outFiles": ["${workspaceFolder}/features/stepdefs/dist/**/*.js"]
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Cucumber - debug tag",
-      "program": "${workspaceFolder}/node_modules/cucumber/bin/cucumber-js",
-      "args": ["-t", "@debug"],
-      "outFiles": ["${workspaceFolder}/**/*.js"]
+      "program": "${workspaceFolder}/node_modules/@cucumber/cucumber/bin/cucumber-js",
+      "args": ["-t", "@debug", "--format", "@serenity-js/cucumber"],
+      "outFiles": ["${workspaceFolder}/features/stepdefs/dist/**/*.js"]
     }
   ]
 }
