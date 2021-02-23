@@ -4,33 +4,33 @@ Feature: Admin Base User Management
   so that an admin has control over the registrated users
 
   Background: Base Users
-    Given a user base with the users
-      | userId |
-      | adam   |
-      | bop    |
+    Given Admin creates a user base with the users
+      | id   |
+      | adam |
+      | bop  |
 
   Rule: List Users
     Example: List all users
       When Admin lists all users
       Then the userlist only contains
-        | Name  |
-        | Admin |
-        | Bop   |
+        | id   |
+        | adam |
+        | bop  |
 
   Rule: User Creation
     Example: Create a User
       Given Admin creates a new User with the Username "temp"
       When Admin lists all users
       Then the userlist only contains
-        | Name  |
-        | Admin |
-        | Bop   |
-        | temp  |
+        | id   |
+        | adam |
+        | bop  |
+        | temp |
 
   Rule: User Deletion
     Example: Delete a User
-      Given Admin deletes the user "Bop"
+      Given Admin deletes the user "bop"
       When Admin lists all users
       Then the userlist only contains
-        | Name  |
-        | Admin |
+        | id   |
+        | adam |
