@@ -1,26 +1,35 @@
-import { DataTable, Given, Then, When } from "@cucumber/cucumber";
+import { DataTable, Given, Then, When } from '@cucumber/cucumber';
+import { contain, Ensure } from '@serenity-js/assertions';
+import { actorCalled, actorInTheSpotlight, Transform } from '@serenity-js/core';
+import {
+  add,
+  deleteTheUser,
+  listUsers,
+} from './support/screenplay/Interactions/Users';
+import { Userlist } from './support/screenplay/Questions';
 
-Given('a user base with the users', function (dataTable: DataTable) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+Given('a user base with the users', (dataTable: DataTable) =>
+  actorCalled('gherkin').attemptsTo(add.theUsers(dataTable.hashes())),
+);
 
-Given('Admin creates a new User with the Username {string}', function (username: string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+Given(
+  '{word} creates a new User with the Username {string}',
+  (actor: string, id: string) =>
+    actorCalled(actor).attemptsTo(add.theUser({ id })),
+);
 
-Given('Admin deletes the user {string}', function (username: string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+Given('{word} deletes the user {string}', (actor: string, userId: string) =>
+  actorCalled(actor).attemptsTo(deleteTheUser(userId)),
+);
 
-When('Admin lists all users', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+When('{word} lists all users', (actor: string) =>
+  actorCalled(actor).attemptsTo(listUsers),
+);
 
-Then('the userlist only contains', function (dataTable: DataTable) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+Then('the userlist only contains', (dataTable: DataTable) => {
+  const userIdList = Transform.the(Userlist, (x) => x.map((y) => y.id));
+  const activities = dataTable
+    .hashes()
+    .map((x) => Ensure.that(userIdList, contain(x.id)));
+  actorInTheSpotlight().attemptsTo(...activities);
 });

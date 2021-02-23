@@ -3,9 +3,10 @@
   "compilerOptions": {
     "declaration": false,
     "strict": false,
-    "resolveJsonModule": true
+    "module": "CommonJS",
+    "moduleResolution": "Node"
   },
   "include": [
     "**/*.ts"
-  ]
+, "../../cucumber.ts"  ]
 }
