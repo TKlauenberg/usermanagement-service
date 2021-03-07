@@ -7,15 +7,15 @@ export class UsermanagementMock implements IUsermanagementBackend {
   constructor() {
 
   }
-  createUser(user: User): Result<User> {
+  createUser(user: User): Promise<Result<User>> {
     this.#userDb.set(user.id, user);
-    return [true, user];
+    return new Promise(()=>[true, user]);
   }
-  deleteUser(userId: string): Result<undefined> {
+  deleteUser(userId: string): Promise<Result<undefined>> {
     this.#userDb.delete(userId);
-    return [true, undefined];
+    return new Promise(()=>[true, undefined]);
   }
-  listUsers(): Result<User[]> {
-    return [true, [...this.#userDb.values()]];
+  listUsers(): Promise<Result<User[]>> {
+    return new Promise(()=>[true, [...this.#userDb.values()]]);
   }
 }

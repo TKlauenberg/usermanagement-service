@@ -6,6 +6,7 @@ import {
   Loop,
   Transform,
 } from '@serenity-js/core';
+import { User } from '../../src/model';
 import { add, deleteTheUser, listUsers } from './support/interactions';
 import { Userlist } from './support/questions';
 
@@ -31,19 +32,16 @@ When('{word} lists all users', (actor: string) =>
 
 Then('the userlist only contains', (dataTable: DataTable) => {
   const userIdList = Transform.the(Userlist, (x) => x.map((y) => y.id));
-  const activities = dataTable
-    .hashes()
-    .map((x) => Ensure.that(userIdList, contain(x.id)));
   return actorInTheSpotlight().attemptsTo(
+    Ensure.that(Userlist, not(equals(undefined))),
     Ensure.that(
       Transform.the(Userlist, (x) => x.length),
       equals(dataTable.hashes().length),
     ),
-    Ensure.that(Userlist, not(equals(undefined))),
     Loop.over(dataTable.hashes()).to(
       Ensure.that(
         userIdList,
-        contain(Transform.the(Loop.item<any>(), (x) => x.id)),
+        contain(Transform.the(Loop.item<User>(), (x) => x.id)),
       ),
     ),
   );

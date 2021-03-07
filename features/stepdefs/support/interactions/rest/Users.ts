@@ -7,24 +7,19 @@ import {
   GetRequest,
   LastResponse,
   PostRequest,
-  Send,
+  Send
 } from '@serenity-js/rest';
 import { User } from '../../../../../src/model';
-const defaultUser: User = {
-  id: 'testuser',
-  forname: 'John',
-  surname: 'Doe',
-};
-
-export const addDefaults = (objectToTransform: Partial<User>): User =>
-  Object.assign(defaultUser, objectToTransform);
+import { addDefaults } from '../../util/defaultUser';
 
 function addUser(partialUser: Partial<User> & { id: string }): Activity {
   return Task.where(
     `#actor adds the user with the id ${partialUser.id}`,
     ChangeApiConfig.setUrlTo(Note.of(LocalServer.url())),
     Send.a(
-      PostRequest.to('/api/v1/users').with(Transform.the(partialUser, addDefaults)),
+      PostRequest.to('/api/v1/users').with(
+        Transform.the(partialUser, addDefaults),
+      ),
     ),
     Ensure.that(LastResponse.status(), equals(201)),
   );

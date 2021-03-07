@@ -6,8 +6,8 @@ export function getUserRouter(backend: IUsermanagementBackend): Router {
   const router = Router();
   router.use(json());
 
-  router.get('/users', (req, res) => {
-    const [result, usersOrError] = backend.listUsers();
+  router.get('/users', async (req, res) => {
+    const [result, usersOrError] = await backend.listUsers();
     if (result) {
       res.send(usersOrError);
     } else {
@@ -17,9 +17,9 @@ export function getUserRouter(backend: IUsermanagementBackend): Router {
     }
   });
 
-  router.post('/users', (req, res) => {
+  router.post('/users', async (req, res) => {
     const user = req.body as User;
-    const [result, userCreatedOrError] = backend.createUser(user);
+    const [result, userCreatedOrError] = await backend.createUser(user);
     if (result) {
       res.status(201).send(userCreatedOrError as User);
     } else {
@@ -29,9 +29,9 @@ export function getUserRouter(backend: IUsermanagementBackend): Router {
     }
   });
 
-  router.delete('/users/:userId', (req, res) => {
+  router.delete('/users/:userId', async (req, res) => {
     const userId = req.params.userId;
-    const [result, userDeletedOrError] = backend.deleteUser(userId);
+    const [result, userDeletedOrError] = await backend.deleteUser(userId);
     if (result) {
       res.status(204).send();
     } else {

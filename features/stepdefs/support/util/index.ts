@@ -1,1 +1,2 @@
-export * from './getEnvironment'
+export * from './defaultUser';
+export * from './getEnvironment';
