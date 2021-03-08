@@ -1,13 +1,13 @@
-const { environment, TestEnvironment } = require('../util')
+const { getEnvironment, TestEnvironment } = require('../util');
 
-switch (environment) {
-    case TestEnvironment.RestWithMock:
-        module.exports = require('./rest');
-        break;
-    case TestEnvironment.Backend:
-        module.exports = require('./backend')
-        break;
-    default:
-        module.exports = require('./rest');
-        break;
+switch (getEnvironment()) {
+  case TestEnvironment.restWithMock:
+    module.exports = require('./rest');
+    break;
+  case TestEnvironment.backendMock:
+    module.exports = require('./backend');
+    break;
+  default:
+    module.exports = require('./rest');
+    break;
 }

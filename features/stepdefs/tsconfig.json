@@ -4,12 +4,11 @@
     "declaration": false,
     "strict": false,
     "allowJs": true,
+    "checkJs": true,
     "outDir": "./dist",
     "resolveJsonModule": true,
     "module": "CommonJS",
     "moduleResolution": "Node"
   },
-  "include": [
-    "**/*.ts"
-, "../../cucumber.ts"  ]
+  "include": ["**/*.ts", "../testenvironment/**/*.ts"]
 }

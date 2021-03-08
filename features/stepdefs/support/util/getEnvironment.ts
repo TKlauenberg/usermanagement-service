@@ -1,15 +1,18 @@
 export enum TestEnvironment {
-  RestWithMock,
-  RestWithLdapBackend,
+  backendMock = 'backendMock',
+  restWithMock = 'mockRest',
+  restWithLdapBackend = 'ldapRest',
 }
 
-function getEnvironment(): TestEnvironment {
+export function getEnvironment(): TestEnvironment {
   switch (process.env.testenv) {
-    case 'mockrest':
-      return TestEnvironment.RestWithMock;
+    case TestEnvironment.backendMock:
+      return TestEnvironment.backendMock;
+    case TestEnvironment.restWithMock:
+      return TestEnvironment.restWithMock;
+    case TestEnvironment.restWithLdapBackend:
+      return TestEnvironment.restWithLdapBackend;
     default:
-      return TestEnvironment.RestWithMock;
+      return TestEnvironment.restWithMock;
   }
 }
-
-export const environment = getEnvironment();
