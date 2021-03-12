@@ -1,4 +1,4 @@
-import { Actor, Cast, configure } from '@serenity-js/core';
+import { Actor, ArtifactArchiver, Cast, configure } from '@serenity-js/core';
 import { TestUsermanagementBackend } from '../stepdefs/support/abilities';
 import { UsermanagementMock } from '../stepdefs/support/mocks';
 import { TestEnvironment } from '../stepdefs/support/util';
@@ -16,5 +16,8 @@ class Actors implements Cast {
 
 configure({
   actors: new Actors(),
-  crew: [...baseCrew],
+  crew: [
+    ArtifactArchiver.storingArtifactsAt('./target/backendMock'),
+    ...baseCrew,
+  ],
 });
